@@ -1,0 +1,88 @@
+-- PRUEBA DE BASES DE DATOS RELACIONALES sql 
+-- ALUMNO: ALEXANDER HERNANDEZ ORELLANA 
+-- COHORTE 2
+
+-- 1)SE CREAN LAS TABLAS CORRESPONDIENTES A LO SOLICITADO
+create table tipoProducto(
+	id int primary key not null auto_increment,
+	nombre varchar(20) not null,
+	descripcion varchar(100)
+);
+
+create table producto(
+id1 int primary key not null auto_increment,
+nombre varchar(100) not null,
+tipoProducto_id int not null,
+FOREIGN KEY (id) REFERENCES tipoProducto(id)
+);
+	
+create table proveedor(
+	id2 int primary key not null auto_increment,
+	nombre varchar(100) not null,
+	rut varchar(100) not null,
+	producto_id int not null,
+	tipoProducto_id int not null,
+	FOREIGN KEY (producto_id) REFERENCES producto(id),
+	FOREIGN KEY (tipoproducto_id) REFERENCES tipoProducto(id)
+);
+
+
+create table informeAnualVenta(
+	id int primary key not null auto_increment,
+	valorVenta int not null,
+	unidadesVendidas int not null,
+	producto_id int not null,
+	proveedor_id int not null,
+	FOREIGN KEY (producto_id) REFERENCES producto(id),
+	FOREIGN KEY (proveedor_id) REFERENCES proveedor(id)
+);
+
+-- SE AGREGA VALORES A LA TABLA TIPOPRODUCTO (X4)
+insert into tipoproducto(id,nombre,descripcion)
+values(1,"bebidas","liquidos");
+
+insert into tipoproducto(id,nombre,descripcion)     
+values(2,"abarrotes","productos solidos");
+
+insert into tipoproducto(id,nombre,descripcion)
+values(3,"productos_hogar","varios");
+
+insert into tipoproducto(id,nombre,descripcion)
+values(4,"productosEscolares","Varios");
+
+-- SE AGREGA VALORES A LA TABLA PRODUCTOS (X5)
+insert into producto (id,nombre,tipoProducto_id)
+values(1,"coca cola","10");
+
+insert into producto (id,nombre,tipoProducto_id)
+values(2,"pepsi","20");
+
+insert into producto (id,nombre,tipoProducto_id)
+values(3,"fanta","30");
+
+insert into producto (id,nombre,tipoProducto_id)
+values(4,"inca cola","40");
+
+insert into producto (id,nombre,tipoProducto_id)
+values(5,"limon soda","50");
+
+
+-- SE AGREGA VALORES A LA TABLA PROVEEDORES(X4)
+
+insert into proveedor  (id,nombre,rut,producto_id,tipoProducto_id)
+values(1,"cocacola company",10.100-1,10,1);
+
+insert into proveedor  (id,nombre,rut,producto_id,tipoProducto_id)
+values(2,"pepsi ltda",120.100-1,20);
+
+insert into proveedor  (id,nombre,rut,producto_id,tipoProducto_id)
+values(3,"fruna S.A",76.5430-3,30);
+
+insert into proveedor  (id,nombre,rut,producto_id,tipoProducto_id)
+values(4,"distribuidora hernandez ltda",67.432-4,40);
+
+
+-- CONSULTA JOIN
+-- EN ESTA CONSULTA SE BUSCA UNIR LA TABLA TIPO DE PRODUCTO CON PRODUCTO PARA VER EL DETALLE DE ESTA. 
+select * from tipoproducto
+inner join producto
